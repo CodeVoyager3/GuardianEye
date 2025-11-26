@@ -20,7 +20,7 @@ const Navbar = () => {
               className="flex-shrink-0 text-[#00FFFF] flex items-center gap-2"
               whileHover={{ scale: 1.05 }}
             >
-              <img src="/logo.png" alt="A.R.E.S. Logo" className="h-10 w-auto" />
+              <img src="/logo.png" alt="A.R.E.S. Logo" className="h-10  w-auto" />
               <span className="font-bold text-xl tracking-tighter">A.R.E.S.</span>
             </motion.div>
           </div>

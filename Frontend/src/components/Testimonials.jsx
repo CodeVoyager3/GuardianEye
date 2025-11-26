@@ -34,7 +34,31 @@ const reports = [
         content: "In the field, hesitation kills. A.R.E.S. doesn't hesitate, but it also doesn't make mistakes. It's the partner I want watching my six.",
         date: "2024-11-30",
         clearance: "LEVEL 4"
-    }
+    },
+    {
+        id: 5,
+        name: "DR. A. MISHRA",
+        role: "CHIEF AI ETHICIST",
+        content: "The Civilian Shield protocols are not just a safety feature; they are the foundation of trust. We've seen zero false positives in urban deployment tests.",
+        date: "2024-10-22",
+        clearance: "LEVEL 5"
+    },
+    {
+        id: 6,
+        name: "DR. A. MISHRA",
+        role: "CHIEF AI ETHICIST",
+        content: "The Civilian Shield protocols are not just a safety feature; they are the foundation of trust. We've seen zero false positives in urban deployment tests.",
+        date: "2024-10-22",
+        clearance: "LEVEL 5"
+    },
+    {
+        id: 7,
+        name: "DR. A. MISHRA",
+        role: "CHIEF AI ETHICIST",
+        content: "The Civilian Shield protocols are not just a safety feature; they are the foundation of trust. We've seen zero false positives in urban deployment tests.",
+        date: "2024-10-22",
+        clearance: "LEVEL 5"
+    },
 ];
 
 const Testimonials = () => {
