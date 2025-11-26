@@ -5,7 +5,7 @@ import { FileText, User } from 'lucide-react';
 const reports = [
     {
         id: 1,
-        name: "COL. J. SMITH",
+        name: "COL. S. SINGH",
         role: "SECOPS LEAD",
         content: "A.R.E.S.'s autonomous response time reduced our incident containment window by 94%. The Tribunal system provides the audit trail we need for compliance.",
         date: "2024-11-15",
@@ -13,7 +13,7 @@ const reports = [
     },
     {
         id: 2,
-        name: "DR. A. CHEN",
+        name: "DR. A. MISHRA",
         role: "CHIEF AI ETHICIST",
         content: "The Civilian Shield protocols are not just a safety feature; they are the foundation of trust. We've seen zero false positives in urban deployment tests.",
         date: "2024-10-22",
@@ -21,7 +21,7 @@ const reports = [
     },
     {
         id: 3,
-        name: "M. KOWALSKI",
+        name: "M. GOSWAMI",
         role: "INFRASTRUCTURE DIR",
         content: "Deploying A.R.E.S. was seamless. The Zero-Trust architecture integrated perfectly with our existing sensor grid without requiring a complete overhaul.",
         date: "2024-12-01",
@@ -29,7 +29,7 @@ const reports = [
     },
     {
         id: 4,
-        name: "SGT. T. REYNOLDS",
+        name: "SGT. T. REDDY",
         role: "FIELD OPERATOR",
         content: "In the field, hesitation kills. A.R.E.S. doesn't hesitate, but it also doesn't make mistakes. It's the partner I want watching my six.",
         date: "2024-11-30",

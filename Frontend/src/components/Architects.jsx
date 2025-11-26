@@ -7,7 +7,7 @@ const team = [
         name: "AYUSH KUMAR",
         role: "LEAD SYSTEMS ARCHITECT",
         bio: "Specializing in autonomous swarm logic and adversarial AI defense systems.",
-        image: "/person1.jpg"
+        image: "/person1.png"
     },
     {
         name: "AMRITESH KUMAR RAI",

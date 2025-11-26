@@ -21,8 +21,8 @@ const Hero = () => {
                     transition={{ duration: 0.8, ease: "easeOut" }}
                 >
                     <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-6 text-white">
-                        PROJECT <span className="text-[#00FFFF] neon-text">A.R.E.S.</span> <br />
-                        ZERO-TRUST AUTONOMOUS DEFENSE
+                        <span className="text-[#00FFFF] neon-text">A.R.E.S.</span> <br />
+                        Autonomous Response & Engagement System
                     </h1>
                 </motion.div>
 
