@@ -1,19 +1,65 @@
 @import "tailwindcss";
-h1 {
-  font-family: "Orbitron", sans-serif;
-  font-optical-sizing: auto;
+
+:root {
+  --color-bg: #101010;
+  --color-accent: #00FFFF;
+  --color-alert: #FF3333;
+  --color-text: #E0E0E0;
+  --color-panel: #1A1A1A;
 }
 
-
-
-button{
-  background: -webkit-linear-gradient(to right, #1cbfff, #1b17ee81);
-  background: linear-gradient(to right, #0389d6, rgb(64, 27, 214));
-  color:rgb(218, 223, 231)
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: 'Space Mono', monospace;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
 }
 
-nav{
-  font-family: "Scope One", serif;
-  font-weight: 400;
+html,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
+/* Sharp edges enforcement */
+* {
+  border-radius: 0px !important;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-panel);
+  border: 1px solid var(--color-accent);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+}
+
+/* Utility for neon glow */
+.neon-text {
+  text-shadow: 0 0 5px var(--color-accent), 0 0 10px var(--color-accent);
+}
+
+.neon-border {
+  box-shadow: 0 0 5px var(--color-accent);
+}
+
+.alert-text {
+  color: var(--color-alert);
+  text-shadow: 0 0 5px var(--color-alert);
+}
