@@ -14,71 +14,28 @@ let DefaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
-const TacticalMap = ({ threats = [] }) => {
+const TacticalMap = ({ threats = [], onNeutralize }) => {
     const center = [28.61, 77.20]; // New Delhi
 
-    // Custom Icon for Threats
-    const threatIcon = new L.DivIcon({
-        className: 'custom-icon',
-        html: `<div style="
-            width: 24px;
-            height: 24px;
-            border: 2px solid #FF0000;
-            border-radius: 50%;
-            background-color: rgba(255, 0, 0, 0.2);
-            box-shadow: 0 0 10px #FF0000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        ">
-            <div style="
-                width: 4px;
-                height: 4px;
-                background-color: #FF0000;
-                border-radius: 50%;
-            "></div>
-            <div style="
-                position: absolute;
-                top: -4px;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 2px;
-                height: 4px;
-                background-color: #FF0000;
-            "></div>
-            <div style="
-                position: absolute;
-                bottom: -4px;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 2px;
-                height: 4px;
-                background-color: #FF0000;
-            "></div>
-            <div style="
-                position: absolute;
-                left: -4px;
-                top: 50%;
-                transform: translateY(-50%);
-                width: 4px;
-                height: 2px;
-                background-color: #FF0000;
-            "></div>
-            <div style="
-                position: absolute;
-                right: -4px;
-                top: 50%;
-                transform: translateY(-50%);
-                width: 4px;
-                height: 2px;
-                background-color: #FF0000;
-            "></div>
-        </div>`,
-        iconSize: [24, 24],
-        iconAnchor: [12, 12],
-        popupAnchor: [0, -12]
-    });
+    const getThreatIcon = (threat) => {
+        const isVerified = threat.isZyndVerified;
+        const color = '#FF0000'; // Always Red
+
+        return new L.DivIcon({
+            className: 'custom-icon',
+            html: `
+            <div class="relative flex items-center justify-center w-12 h-12">
+                ${!isVerified ? `<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[8px] font-bold bg-red-600 text-white px-1 whitespace-nowrap z-50">⚠️ SIG MISMATCH</div>` : ''}
+                
+                <div class="w-6 h-6 border-2 flex items-center justify-center relative z-10 ${!isVerified ? 'animate-bounce' : ''}" style="border-color: ${color}; background-color: ${color}20; box-shadow: 0 0 10px ${color}; border-radius: 50%;">
+                    <div style="width: 8px; height: 8px; background-color: ${color}; border-radius: 50%;"></div>
+                </div>
+            </div>`,
+            iconSize: [48, 48],
+            iconAnchor: [24, 24],
+            popupAnchor: [0, -24]
+        });
+    };
 
     return (
         <div className="w-full h-full relative border border-[#333] overflow-hidden">
@@ -99,13 +56,22 @@ const TacticalMap = ({ threats = [] }) => {
                     <Marker
                         key={index}
                         position={[threat.lat, threat.lng]}
-                        icon={threatIcon}
+                        icon={getThreatIcon(threat)}
                     >
                         <Popup className="tactical-popup">
                             <div className="bg-black text-[#00FFFF] border border-[#00FFFF] p-2 font-mono text-xs">
                                 <h3 className="font-bold border-b border-[#00FFFF]/30 mb-1">{threat.id}</h3>
                                 <p>TYPE: {threat.type}</p>
                                 <p>STATUS: {threat.status}</p>
+                                <p className={threat.isZyndVerified ? "text-green-400" : "text-red-500 font-bold"}>
+                                    {threat.isZyndVerified ? "VERIFIED" : "SPOOF DETECTED"}
+                                </p>
+                                <button
+                                    onClick={() => onNeutralize && onNeutralize(threat.id)}
+                                    className="mt-2 w-full bg-[#00FFFF]/20 hover:bg-[#00FFFF]/40 text-[#00FFFF] border border-[#00FFFF] py-1 text-[10px] uppercase tracking-wider transition-colors"
+                                >
+                                    NEUTRALIZE
+                                </button>
                             </div>
                         </Popup>
                     </Marker>

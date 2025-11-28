@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { LayoutDashboard, Activity, Shield, Settings, LogOut } from 'lucide-react';
 import TacticalMap from '../components/dashboard/TacticalMap';
 import TribunalLog from '../components/dashboard/TribunalLog';
@@ -6,6 +6,16 @@ import { useThreatSimulation } from '../hooks/useThreatSimulation';
 
 const DashboardPage = () => {
     const { activeThreats } = useThreatSimulation();
+    const [threatsNeutralized, setThreatsNeutralized] = useState(843);
+
+    const handleNeutralize = () => {
+        setThreatsNeutralized(prev => prev + 1);
+    };
+
+    const systemStatus = activeThreats.length > 3 ? 'ENGAGING' : 'ONLINE';
+    const statusColor = activeThreats.length > 3 ? 'text-red-500' : 'text-[#00FFFF]';
+    const statusBg = activeThreats.length > 3 ? 'bg-red-500/10 border-red-500/20' : 'bg-[#00FFFF]/10 border-[#00FFFF]/20';
+    const statusDot = activeThreats.length > 3 ? 'bg-red-500' : 'bg-[#00FFFF]';
 
     return (
         <div className="flex h-screen w-full bg-[#101010] text-white overflow-hidden font-sans">
@@ -41,19 +51,19 @@ const DashboardPage = () => {
                         <p className="text-gray-400 text-sm mt-1">Overview of active autonomous agents</p>
                     </div>
                     <div className="flex items-center gap-4">
-                        <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#00FFFF]/10 border border-[#00FFFF]/20 text-[#00FFFF] text-xs font-mono">
-                            <span className="w-2 h-2 rounded-full bg-[#00FFFF] animate-pulse" />
-                            SYSTEM ONLINE
+                        <div className={`flex items-center gap-2 px-3 py-1 rounded-full border text-xs font-mono transition-colors duration-300 ${statusBg} ${statusColor}`}>
+                            <span className={`w-2 h-2 rounded-full animate-pulse ${statusDot}`} />
+                            SYSTEM {systemStatus}
                         </div>
                         <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10" />
                     </div>
                 </header>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
-                    {/* Placeholder Widgets */}
-                    <DashboardCard title="Active Agents" value="12" trend="+2" />
-                    <DashboardCard title="Threats Neutralized" value="843" trend="+15%" />
-                    <DashboardCard title="System Uptime" value="99.99%" trend="Stable" />
+                    {/* Real-time Widgets */}
+                    <DashboardCard title="Active Threats" value={activeThreats.length} trend={activeThreats.length > 3 ? "HIGH" : "NORMAL"} />
+                    <DashboardCard title="Threats Neutralized" value={threatsNeutralized} trend="+1" />
+                    <DashboardCard title="System Status" value={systemStatus} trend="Stable" />
 
                     {/* Tactical Map */}
                     <div className="col-span-1 md:col-span-2 lg:col-span-2 h-[400px] bg-[#151515] border border-white/5 rounded-xl overflow-hidden relative group">
@@ -61,18 +71,22 @@ const DashboardPage = () => {
                             <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
                             <span className="text-xs font-mono text-red-500 tracking-wider">LIVE FEED</span>
                         </div>
-                        <TacticalMap threats={activeThreats.map(t => ({
-                            id: t.id,
-                            lat: t.coordinates[0],
-                            lng: t.coordinates[1],
-                            type: t.type,
-                            status: t.status
-                        }))} />
+                        <TacticalMap
+                            threats={activeThreats.map(t => ({
+                                id: t.id,
+                                lat: t.coordinates[0],
+                                lng: t.coordinates[1],
+                                type: t.type,
+                                status: t.status,
+                                isZyndVerified: t.isZyndVerified
+                            }))}
+                            onNeutralize={handleNeutralize}
+                        />
                     </div>
 
                     {/* Tribunal Log */}
                     <div className="col-span-1 md:col-span-1 lg:col-span-1 h-[400px] rounded-xl overflow-hidden">
-                        <TribunalLog />
+                        <TribunalLog activeThreats={activeThreats} />
                     </div>
                 </div>
             </main>
