@@ -21,9 +21,9 @@ const DashboardPage = () => {
         <div className="flex h-screen w-full bg-[#101010] text-white overflow-hidden font-sans">
             {/* Sidebar */}
             <aside className="w-[80px] flex-shrink-0 border-r border-white/10 flex flex-col items-center py-6 bg-[#0A0A0A]">
-                <div className="mb-8">
-                    <div className="w-10 h-10 bg-[#00FFFF]/10 rounded-lg flex items-center justify-center border border-[#00FFFF]/30">
-                        <Shield className="w-6 h-6 text-[#00FFFF]" />
+                <div onClick={() => window.location.reload()} className="mb-8">
+                    <div className="w-10 h-10  rounded-lg flex items-center justify-center ">
+                        <img src="/logo.png" alt="ARES Logo" className="w-10 hover:animate-pulse h-10 object-contain" />
                     </div>
                 </div>
 
@@ -55,7 +55,6 @@ const DashboardPage = () => {
                             <span className={`w-2 h-2 rounded-full animate-pulse ${statusDot}`} />
                             SYSTEM {systemStatus}
                         </div>
-                        <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10" />
                     </div>
                 </header>
 
