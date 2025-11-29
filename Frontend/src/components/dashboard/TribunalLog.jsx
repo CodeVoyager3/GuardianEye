@@ -57,34 +57,14 @@ const TribunalLog = ({ activeThreats = [] }) => {
             // SCENARIO: SPOOF DETECTED
             script = [
                 { agent: 'AGGRESSOR', text: `Contact! ${tType} detected in ${tSector}. Engaging tracking algorithms.` },
-                { agent: 'GUARDIAN', text: `HOLD FIRE. Zynd Protocol verification failed. Signature mismatch on sensors.` },
-                { agent: 'LOGISTICAN', text: `Discarding data packet. Source marked as unreliable. No resources allocated.` },
-                { agent: 'GUARDIAN', text: `Spoofing attempt logged. Threat disregarded.` }
             ];
         } else {
-            // SCENARIO: REAL THREAT
-            if (tType === 'DRONE_SWARM') {
-                script = [
-                    { agent: 'AGGRESSOR', text: `Swarm signature detected in ${tSector}. Requesting EMP detonation.` },
-                    { agent: 'GUARDIAN', text: `Analyzing... Civilian infrastructure is within EMP range. Denied.` },
-                    { agent: 'LOGISTICAN', text: `Alternative: Kinetic interceptors available. Cost: $120k. Success probability: 89%.` },
-                    { agent: 'AGGRESSOR', text: `Acceptable. Scramble interceptors immediately.` }
-                ];
-            } else if (tType === 'INFANTRY') {
-                script = [
-                    { agent: 'AGGRESSOR', text: `Ground units identified in ${tSector}. Recommend suppression fire.` },
-                    { agent: 'GUARDIAN', text: `Negative. Heat signatures indicate non-combatants mixed in group.` },
-                    { agent: 'LOGISTICAN', text: ` deploying surveillance drone for visual confirmation. Fuel time: 4 hours.` },
-                    { agent: 'GUARDIAN', text: `Agreed. Maintain observation only.` }
-                ];
-            } else {
-                // Generic fallback
-                script = [
-                    { agent: 'AGGRESSOR', text: `Anomaly detected in ${tSector}. Threat level rising.` },
-                    { agent: 'LOGISTICAN', text: `Verifying supply lines to ${tSector}. We are green for engagement.` },
-                    { agent: 'GUARDIAN', text: `Proceed with caution. Rules of Engagement apply.` }
-                ];
-            }
+            // Generic fallback
+            script = [
+                { agent: 'AGGRESSOR', text: `Anomaly detected in ${tSector}. Threat level rising.` },
+                { agent: 'LOGISTICAN', text: `Verifying supply lines to ${tSector}. We are green for engagement.` },
+                { agent: 'GUARDIAN', text: `Proceed with caution. Rules of Engagement apply.` }
+            ];
         }
 
         // 2. Play the script with delays (The "Typing" effect)

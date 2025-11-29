@@ -1,35 +1,30 @@
 import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 
-// Initialize socket outside component to prevent multiple connections
-const socket = io('http://localhost:3000');
+const socket = io('http://localhost:3000'); // Node.js Backend
 
-const useRealtimeThreats = () => {
+export const useRealtimeThreats = () => {
     const [activeThreats, setActiveThreats] = useState([]);
 
     useEffect(() => {
-        // Handler for new threats
-        const handleNewThreat = (threat) => {
-            console.log("🚨 New Threat Received:", threat);
+        socket.on('connect', () => console.log("🟢 Connected to A.R.E.S. Nervous System"));
 
-            // Play Alert Sound
+        socket.on('NEW_THREAT', (threat) => {
+            console.log("⚠️ REAL THREAT RECEIVED:", threat);
+
+            // Optional: Play Sound
             const audio = new Audio('/sounds/alert.mp3');
-            audio.play().catch(e => console.error("Audio play failed:", e));
+            audio.play().catch(e => console.log("Audio play failed", e));
 
-            // Update State
-            setActiveThreats(prev => [...prev, threat]);
-        };
+            setActiveThreats(prev => {
+                // Avoid duplicates based on ID if present, otherwise just append
+                if (threat.id && prev.find(t => t.id === threat.id)) return prev;
+                return [threat, ...prev];
+            });
+        });
 
-        // Listen for event
-        socket.on('NEW_THREAT', handleNewThreat);
-
-        // Cleanup
-        return () => {
-            socket.off('NEW_THREAT', handleNewThreat);
-        };
+        return () => { socket.off('NEW_THREAT'); };
     }, []);
 
     return { activeThreats };
 };
-
-export default useRealtimeThreats;

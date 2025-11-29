@@ -4,14 +4,16 @@ import requests
 import json
 import time
 from ecdsa import SigningKey, SECP256k1
+from ecdsa.util import sigencode_der
 import binascii
+import hashlib
 
 # 1. Generate Identity (Private/Public Key)
 # We generate a new identity on every startup for this demo.
 # In production, you'd load this from a secure file.
 sk = SigningKey.generate(curve=SECP256k1)
 vk = sk.verifying_key
-public_key_hex = binascii.hexlify(vk.to_string()).decode()
+public_key_hex = "04" + binascii.hexlify(vk.to_string()).decode()
 
 print(f"🔑 SENSOR IDENTITY GENERATED: {public_key_hex[:16]}...")
 
@@ -56,8 +58,9 @@ while True:
                     
                     # Crypto: Sign the payload
                     # We sign the sorted JSON string to ensure consistency
-                    message = json.dumps(payload_data, sort_keys=True).encode()
-                    signature = sk.sign(message)
+                    # Use separators=(',', ':') to match JS JSON.stringify behavior (no spaces)
+                    message = json.dumps(payload_data, sort_keys=True, separators=(',', ':')).encode()
+                    signature = sk.sign(message, hashfunc=hashlib.sha256, sigencode=sigencode_der)
                     signature_hex = binascii.hexlify(signature).decode()
 
                     # Prepare final packet
